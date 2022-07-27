@@ -18,9 +18,8 @@
 #include "rgb_matrix_ledmaps.h"
 
 enum layout_names {
-    LINUX = 0,  // Base Layout: The main keyboard layout that has all the characters
-    WINDOWS,    // Base ayout for Windows
-    MACOS,      // Base Layout for MacOS
+    MACOS = 0,  // Base Layout: The main keyboard layout that has all the characters
+    LINUX,      // Base Layout for MacOS
     FUNCTIONS,  // Function Layout: The function key activated layout with default functions and
                 // some added ones
     GIT,        // GIT Layout: GIT shortcuts and macros
@@ -46,6 +45,7 @@ enum custom_keycodes {
     KC_RGB_ENC_EFFECT,
 
     KC_WPM_RGB,
+    KC_IJ_F10
 };
 
 enum git_macros {

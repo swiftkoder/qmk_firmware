@@ -32,13 +32,13 @@ __attribute__((weak)) bool process_record_fun(uint16_t keycode, keyrecord_t *rec
 
 __attribute__((weak)) void keyboard_post_init_encoder(void) { return; }
 
-static const char *git_commands[] = {
-    "git init ",     "git clone ", "git config --global ", "git add ",
-    "git diff ",     "git reset ", "git rebase ",          "git branch -b \"",
-    "git checkout ", "git merge ", "git remote add ",      "git fetch ",
-    "git pull ",     "git push ",  "git commit ",          "git status ",
-    "git log ",
-};
+// static const char *git_commands[] = {
+//     "git init ",     "git clone ", "git config --global ", "git add ",
+//     "git diff ",     "git reset ", "git rebase ",          "git branch -b \"",
+//     "git checkout ", "git merge ", "git remote add ",      "git fetch ",
+//     "git pull ",     "git push ",  "git commit ",          "git status ",
+//     "git log ",
+// };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // If console is enabled, it will print the matrix position and status of each key pressed
@@ -48,6 +48,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             record->event.time, record->tap.interrupted, record->tap.count);
 #endif  // KEYLOGGER_ENABLE
     switch (keycode) {
+         case KC_IJ_F10:
+            if (record->event.pressed) {
+                register_code(KC_LSFT); 
+                register_code(KC_RGUI);
+                register_code(KC_F10);
+                register_code(KC_ENT);
+
+            } else {
+                unregister_code(KC_LSFT); 
+                unregister_code(KC_RGUI);
+                unregister_code(KC_F10);
+                unregister_code(KC_ENT);
+            }
+            break;
+
         case KC_LINUX ... KC_WIN:
             if (record->event.pressed) {
                 dprintf("set_single_persistent_default_layer %d\n", keycode - KC_LINUX + LINUX);
@@ -77,13 +92,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
-        case G_INIT ... G_LOG:
-            if (record->event.pressed) {
-                clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-                send_string_with_delay(git_commands[keycode - G_INIT], MACRO_TIMER);
-                return false;
-            }
-            break;
+        // case G_INIT ... G_LOG:
+        //     if (record->event.pressed) {
+        //         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+        //         send_string_with_delay(git_commands[keycode - G_INIT], MACRO_TIMER);
+        //         return false;
+        //     }
+        //     break;
 #ifdef RGB_MATRIX_ENABLE
         case RGB_TOG:
             if (record->event.pressed) {
